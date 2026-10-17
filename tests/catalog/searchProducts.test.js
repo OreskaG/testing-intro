@@ -1,14 +1,40 @@
-const products = require('../../src/data/products');
 const { searchProducts } = require('../../src/catalog');
+const products = require('../../src/data/products');
 
 describe('searchProducts', () => {
-  test.todo("'Наушники' возвращает товар с ID 1");
-  test.todo("'Чистый код' возвращает товар с ID 6");
-  test.todo("'Настольная лампа' возвращает товар с ID 4");
-  test.todo("'javascript' возвращает товар с ID 3");
-  test.todo("'ЧЕХОЛ' возвращает товар с ID 5");
-  test.todo("'наушники' возвращает товар с ID 1");
-  test.todo("пустая строка возвращает товары с ID [1, 2, 3, 4, 5, 6]");
-  test.todo("строка из пробелов возвращает товары с ID [1, 2, 3, 4, 5, 6]");
-  test.todo("'\\t\\n' возвращает товары с ID [1, 2, 3, 4, 5, 6]");
+  test('находит товар по точному совпадению "Наушники"', () => {
+    expect(searchProducts(products, 'Наушники').map(p => p.id)).toEqual([1]);
+  });
+
+  test('находит товар по точному совпадению "Чистый код"', () => {
+    expect(searchProducts(products, 'Чистый код').map(p => p.id)).toEqual([6]);
+  });
+
+  test('находит товар по точному совпадению "Настольная лампа"', () => {
+    expect(searchProducts(products, 'Настольная лампа').map(p => p.id)).toEqual([4]);
+  });
+
+  test('поиск не зависит от регистра (javascript)', () => {
+    expect(searchProducts(products, 'javascript').map(p => p.id)).toEqual([3]);
+  });
+
+  test('поиск не зависит от регистра (ЧЕХОЛ)', () => {
+    expect(searchProducts(products, 'ЧЕХОЛ').map(p => p.id)).toEqual([5]);
+  });
+
+  test('поиск не зависит от регистра (наушники)', () => {
+    expect(searchProducts(products, 'наушники').map(p => p.id)).toEqual([1]);
+  });
+
+  test('возвращает все товары для пустого запроса ""', () => {
+    expect(searchProducts(products, '').map(p => p.id)).toEqual([1, 2, 3, 4, 5, 6]);
+  });
+
+  test('возвращает все товары для запроса из пробелов "   "', () => {
+    expect(searchProducts(products, '   ').map(p => p.id)).toEqual([1, 2, 3, 4, 5, 6]);
+  });
+
+  test('возвращает все товары для запроса из спецсимволов "\\t\\n"', () => {
+    expect(searchProducts(products, '\t\n').map(p => p.id)).toEqual([1, 2, 3, 4, 5, 6]);
+  });
 });
