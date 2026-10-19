@@ -58,7 +58,7 @@ describe('sortProductsByPrice', () => {
     expect(sortProductsByPrice([products[0], products[2], products[3]], 'desc').map( o => o['id'])).toStrictEqual([1, 3, 4])
   })
   
-  test.todo('направление по умолчанию не меняет исходный массив всех товаров');
+  // test.todo('направление по умолчанию не меняет исходный массив всех товаров');
 
   test("направление по умолчанию не меняет исходный массив всех товаров", () => {
     products[0].price = 1

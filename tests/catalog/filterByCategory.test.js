@@ -32,7 +32,7 @@ describe('filterByCategory', () => {
     expect(filterByCategory(products, 'books').map(o => o['id'])).toStrictEqual([3,6])
   })
 
-  test.todo("'home' возвращает товары с ID [4, 5]");
+  // test.todo("'home' возвращает товары с ID [4, 5]");
 
   test("'home' возвращает товары с ID [4, 5]", ()=>{
     expect(filterByCategory(products, 'home').map(o => o['id'])).toStrictEqual([4, 5])
