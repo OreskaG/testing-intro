@@ -2,7 +2,33 @@ function notImplemented() {
   throw new Error('Корзина ещё не реализована. Сначала прочитайте тесты.');
 }
 
-function addToCart() { return notImplemented(); }
+function addToCart(cart, product, quantity) { 
+  if (quantity <= 0) {
+    throw new RangeError('Некорректное количество')
+  }
+  
+  const index = cart.findIndex (item => item.id === product.id)
+  if (index !== -1) {
+    const newQuantity = cart[index].quantity + quantity
+    if (newQuantity > product.stock) {
+      throw new RangeError('Недостаточное количество товара на складе')
+    }
+    return cart.map((item, i) => {
+      if (i === index){
+        return {...item, quantity: newQuantity}
+      }
+      return item
+    })
+  }
+  
+  if (quantity > product.stock) {
+      throw new RangeError('Недостаточное количество товара на складе')
+    }
+  
+  return cart.concat({...product, quantity: quantity})
+}
+
+
 function changeQuantity() { return notImplemented(); }
 function removeFromCart() { return notImplemented(); }
 function calculateCartSubtotal() { return notImplemented(); }
