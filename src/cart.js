@@ -29,7 +29,30 @@ function addToCart(cart, product, quantity) {
 }
 
 
-function changeQuantity() { return notImplemented(); }
+function changeQuantity(cart, productId, quantity) { 
+  if(quantity <= 0){
+    throw new RangeError('Некорректное количество')
+  }
+
+  const index = cart.findIndex(item => item.id === productId)
+  if(index === -1) {
+    return cart
+  }
+
+  const item = cart[index]
+  if (quantity > item.stock){
+    throw new RangeError('Недостаточное количество товара на складе')
+  }
+
+  return cart.map((item,i) => {
+    if (i === index){
+      return {...item, quantity: quantity}
+    }
+    return item
+  })
+
+ }
+
 function removeFromCart() { return notImplemented(); }
 function calculateCartSubtotal() { return notImplemented(); }
 function calculateOrderTotal() { return notImplemented(); }
